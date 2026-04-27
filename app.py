@@ -373,8 +373,10 @@ def init_app():
         run_check()
 
 
-# Iniciar al importar (para gunicorn)
-init_app()
+# Iniciar al recibir la primera petición (para evitar problemas de hilos con gunicorn)
+@app.before_request
+def initialize_on_first_request():
+    init_app()
 
 
 if __name__ == "__main__":
