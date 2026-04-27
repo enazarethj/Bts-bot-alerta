@@ -309,10 +309,11 @@ def self_ping():
 # ============================================================
 # Inicialización
 # ============================================================
+# Declarar el scheduler de forma global para evitar que Python lo borre (Garbage Collection)
+scheduler = BackgroundScheduler(daemon=True)
+
 def start_scheduler():
     """Inicia el scheduler de tareas en background."""
-    scheduler = BackgroundScheduler(daemon=True)
-
     # Tarea principal: monitorear Ticketmaster
     scheduler.add_job(
         run_check,
